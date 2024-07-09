@@ -130,7 +130,8 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
 
     private fun setupSignupButton(isProviderOrOwnInstallationVisible: Boolean) {
         defaultViewThemeUtils?.material?.colorMaterialButtonOutlinedOnPrimary(binding.signup)
-        binding.signup.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
+       // binding.signup.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
+        binding.signup.visibility = View.GONE
         binding.signup.setOnClickListener {
             val authenticatorActivityIntent = getAuthenticatorActivityIntent(true)
 
@@ -150,16 +151,16 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
     }
 
     private fun setupHostOwnServerTextView(isProviderOrOwnInstallationVisible: Boolean) {
-        defaultViewThemeUtils?.platform?.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY)
-        binding.hostOwnServer.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
-        if (isProviderOrOwnInstallationVisible) {
-            binding.hostOwnServer.setOnClickListener {
-                DisplayUtils.startLinkIntent(
-                    this,
-                    R.string.url_server_install
-                )
-            }
-        }
+        // defaultViewThemeUtils?.platform?.colorTextView(binding.hostOwnServer, ColorRole.ON_PRIMARY)
+        // binding.hostOwnServer.visibility = if (isProviderOrOwnInstallationVisible) View.VISIBLE else View.GONE
+        // if (isProviderOrOwnInstallationVisible) {
+        //     binding.hostOwnServer.setOnClickListener {
+        //         DisplayUtils.startLinkIntent(
+        //             this,
+        //             R.string.url_server_install
+        //         )
+        //     }
+        // }
     }
 
     // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now

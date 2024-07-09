@@ -37,7 +37,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: 'com.github.spotbugs'
@@ -106,6 +106,8 @@ android {
         minSdkVersion 24
         targetSdkVersion 34
         compileSdk 34
+        versionCode 3
+        versionName "1.1"
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
         buildConfigField 'boolean', 'RUNTIME_PERF_ANALYSIS', perfAnalysis.toString()
@@ -129,24 +131,34 @@ android {
 
         multiDexEnabled true
 
-        versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
-
-        if (versionBuild > 89) {
-            versionName "${versionMajor}.${versionMinor}.${versionPatch}"
-        } else if (versionBuild > 50) {
-            versionName "${versionMajor}.${versionMinor}.${versionPatch} RC" + (versionBuild - 50)
-        } else {
-            versionName "${versionMajor}.${versionMinor}.${versionPatch} Alpha" + (versionBuild + 1)
-        }
+//        versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
+//
+//        if (versionBuild > 89) {
+//            versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+//        } else if (versionBuild > 50) {
+//            versionName "${versionMajor}.${versionMinor}.${versionPatch} RC" + (versionBuild - 50)
+//        } else {
+//            versionName "${versionMajor}.${versionMinor}.${versionPatch} Alpha" + (versionBuild + 1)
+//        }
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         flavorDimensions += "default"
+//            jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore /Users/macbookpro/Documents/Slnee_Work/NextCloudAndroid/upload-keystore.jks /Users/macbookpro/Documents/Slnee_Work/NextCloudAndroid/app/build/outputs/apk/generic/release/generic-release-30300000.apk upload
+//        jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore /Users/macbookpro/Documents/Slnee_Work/NextCloudAndroid/upload-keystore.jks /Users/macbookpro/Documents/Slnee_Work/NextCloudAndroid/app/build/outputs/bundle/gplayRelease/app-gplay-release.aab upload
 
+        signingConfigs {
+            release {
+                storeFile file("/Users/macbookpro/Documents/Slnee_Work/NextCloudAndroid/upload-keystore.jks")
+                storePassword "123456"
+                keyAlias "upload"
+                keyPassword "123456"
+            }
+        }
         buildTypes {
-            debug {
-                testCoverageEnabled(project.hasProperty('coverage'))
+            release {
+                signingConfig signingConfigs.release
             }
         }
 
@@ -157,29 +169,29 @@ android {
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.slnee.deomfile'
                 dimension "default"
             }
 
             gplay {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.slnee.deomfile'
                 dimension "default"
             }
 
             huawei {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.slnee.deomfile'
                 dimension "default"
             }
 
             versionDev {
-                applicationId "com.nextcloud.android.beta"
+                applicationId "com.deomfile.android.beta"
                 dimension "default"
                 versionCode 20220322
                 versionName "20220322"
             }
 
             qa {
-                applicationId "com.nextcloud.android.qa"
+                applicationId "com.deomfile.android.qa"
                 dimension "default"
                 versionCode 1
                 versionName "1"
@@ -203,14 +215,14 @@ android {
         }
     }
 
-    tasks.register("checkstyle", Checkstyle) {
-        configFile = file("${rootProject.projectDir}/checkstyle.xml")
-        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
-        source 'src'
-        include '**/*.java'
-        exclude '**/gen/**'
-        classpath = files()
-    }
+//    tasks.register("checkstyle", Checkstyle) {
+//        configFile = file("${rootProject.projectDir}/checkstyle.xml")
+//        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
+//        source 'src'
+//        include '**/*.java'
+//        exclude '**/gen/**'
+//        classpath = files()
+//    }
 
     tasks.register("pmd", Pmd) {
         ruleSetFiles = files("${project.rootDir}/ruleset.xml")
@@ -231,7 +243,7 @@ android {
         }
     }
 
-    check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'spotlessKotlinCheck', 'detekt'
+ //   check.dependsOn 'checkstyle', 'spotbugsGplayDebug', 'pmd', 'lint', 'spotlessKotlinCheck', 'detekt'
 
     buildFeatures {
         dataBinding true

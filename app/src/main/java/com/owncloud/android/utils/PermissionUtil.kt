@@ -197,8 +197,9 @@ object PermissionUtil {
 
     @RequiresApi(Build.VERSION_CODES.R)
     private fun manifestHasAllFilesPermission(context: Context): Boolean {
-        val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
-        return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) ?: false
+        // val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
+        // return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) ?: false
+        return false;
     }
 
     /**

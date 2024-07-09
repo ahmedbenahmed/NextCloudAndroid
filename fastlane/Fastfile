@@ -208,56 +208,56 @@ private_lane :checkIfAPKexists do |options|
      fi")
 end
 
-desc "compute version"
-private_lane :androidVersion do
-    File.open("../app/build.gradle","r") do |f|
-        text = f.read
-
-        # everything between Document and Authors
-        major = text.match(/def versionMajor = ([0-9]*)$/)
-        minor = text.match(/def versionMinor = ([0-9]*)$/)
-        patch = text.match(/def versionPatch = ([0-9]*)$/)
-        build = text.match(/def versionBuild = ([0-9]*).*$/)
-
-        majorInt = major[1].to_i
-        minorInt = minor[1].to_i
-        patchInt = patch[1].to_i
-        buildInt = build[1].to_i
-
-        versionCode = majorInt * 10000000 + minorInt * 10000 + patchInt * 100 + buildInt
-
-        if buildInt > 89
-            name = major[1] + "." + minor[1] + "." + patch[1]
-            tag = "stable-" + major[1] + "." + minor[1] + "." + patch[1]
-            branch = "stable-" + major[1] + "." + minor[1]
-        elsif buildInt > 50
-            name = major[1] + "." + minor[1] + "." + patch[1] + " RC" + (buildInt - 50).to_s
-            tag = "rc-" + major[1] + "." + minor[1] + "." + patch[1] + "-" + format('%02d', (buildInt - 50))
-            branch = "stable-" + major[1] + "." + minor[1]
-        else
-            name = major[1] + "." + minor[1] + "." + patch[1] + " Alpha " + format('%02d', (buildInt + 1))
-            tag = "/"
-            branch = "stable-" + major[1] + "." + minor[1]
-        end
-
-        { "versionCode" => versionCode.to_s, "versionName" => name, "tag" => tag, "branch" => branch }
-    end
-end
-
-desc "Show versions and prompt for confirmation"
-private_lane :promptVersion do |options|
-    print "VersionCode: " + options["versionCode"].to_s + "\n"
-    print "Name: " + options["versionName"] + "\n"
-    print "Tag: " + options["tag"] + "\n"
-    print "Branch: " + options["branch"] + "\n"
-    print "\ndisable IPv6 to upload to Gplay!!!\n"
-
-    answer = prompt(text: "is this okay?", boolean: true)
-
-    if !answer
-        exit
-    end
-end
+# desc "compute version"
+# private_lane :androidVersion do
+#     File.open("../app/build.gradle","r") do |f|
+#         text = f.read
+#
+#         # everything between Document and Authors
+#         major = text.match(/def versionMajor = ([0-9]*)$/)
+#         minor = text.match(/def versionMinor = ([0-9]*)$/)
+#         patch = text.match(/def versionPatch = ([0-9]*)$/)
+#         build = text.match(/def versionBuild = ([0-9]*).*$/)
+#
+#         majorInt = major[1].to_i
+#         minorInt = minor[1].to_i
+#         patchInt = patch[1].to_i
+#         buildInt = build[1].to_i
+#
+#         versionCode = majorInt * 10000000 + minorInt * 10000 + patchInt * 100 + buildInt
+#
+#         if buildInt > 89
+#             name = major[1] + "." + minor[1] + "." + patch[1]
+#             tag = "stable-" + major[1] + "." + minor[1] + "." + patch[1]
+#             branch = "stable-" + major[1] + "." + minor[1]
+#         elsif buildInt > 50
+#             name = major[1] + "." + minor[1] + "." + patch[1] + " RC" + (buildInt - 50).to_s
+#             tag = "rc-" + major[1] + "." + minor[1] + "." + patch[1] + "-" + format('%02d', (buildInt - 50))
+#             branch = "stable-" + major[1] + "." + minor[1]
+#         else
+#             name = major[1] + "." + minor[1] + "." + patch[1] + " Alpha " + format('%02d', (buildInt + 1))
+#             tag = "/"
+#             branch = "stable-" + major[1] + "." + minor[1]
+#         end
+#
+#         { "versionCode" => versionCode.to_s, "versionName" => name, "tag" => tag, "branch" => branch }
+#     end
+# end
+#
+# desc "Show versions and prompt for confirmation"
+# private_lane :promptVersion do |options|
+#     print "VersionCode: " + options["versionCode"].to_s + "\n"
+#     print "Name: " + options["versionName"] + "\n"
+#     print "Tag: " + options["tag"] + "\n"
+#     print "Branch: " + options["branch"] + "\n"
+#     print "\ndisable IPv6 to upload to Gplay!!!\n"
+#
+#     answer = prompt(text: "is this okay?", boolean: true)
+#
+#     if !answer
+#         exit
+#     end
+# end
 
 desc "check if library is set correctly"
 private_lane :checkLibrary_RC do

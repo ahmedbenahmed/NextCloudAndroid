@@ -327,7 +327,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                         LayerDrawable layerDrawable = new LayerDrawable(drawables);
 
                         String name = capability.getServerName();
-                        setDrawerHeaderLogo(layerDrawable, name);
+                       // setDrawerHeaderLogo(layerDrawable, name);
                     }
                 };
 
@@ -387,7 +387,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             textView.setTextColor(iconColor);
         }
 
-        banner.setVisibility(View.VISIBLE);
+        banner.setVisibility(View.GONE);
     }
 
     /**

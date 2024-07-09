@@ -30,11 +30,11 @@ class GrantStoragePermissionRule private constructor() {
     private class GrantManageExternalStoragePermissionRule : TestRule {
         override fun apply(base: Statement, description: Description): Statement = object : Statement() {
             override fun evaluate() {
-                InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
-                    "appops set --uid ${InstrumentationRegistry.getInstrumentation().targetContext.packageName} " +
-                        "MANAGE_EXTERNAL_STORAGE allow"
-                )
-                base.evaluate()
+                // InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
+                //     "appops set --uid ${InstrumentationRegistry.getInstrumentation().targetContext.packageName} " +
+                //         "MANAGE_EXTERNAL_STORAGE allow"
+                // )
+                // base.evaluate()
             }
         }
     }

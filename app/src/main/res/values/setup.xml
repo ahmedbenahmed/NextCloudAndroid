@@ -11,7 +11,7 @@
     <bool name="dev_version_direct_download_enabled">false</bool>
 
     <!-- App name  and other strings-->
-    <string name="app_name">Nextcloud</string>
+    <string name="app_name">Deom Files</string>
     <string name="account_type">nextcloud</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
     <string name="authority">org.nextcloud</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="users_and_groups_search_authority">com.nextcloud.android.providers.UsersAndGroupsSearchProvider</string>
@@ -57,9 +57,9 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#0082c9</color>
-    <color name="primary_dark">#006AA3</color>
-    <color name="color_accent">#007cc2</color>
+    <color name="primary">#70c7fd</color>
+    <color name="primary_dark">#7086fd</color>
+    <color name="color_accent">#7044e2</color>
     <color name="login_text_color">#ffffff</color>
     <color name="login_text_hint_color">#7fC0E3</color>
 
